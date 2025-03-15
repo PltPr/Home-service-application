@@ -3228,7 +3228,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
       "Microsoft.Extensions.Identity.Core >= 8.0.14",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.3",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.4",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -3308,7 +3308,7 @@
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
-            "version": "[8.0.3, )"
+            "version": "[8.0.4, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -3339,16 +3339,6 @@
     }
   },
   "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "api depends on Npgsql.EntityFrameworkCore.PostgreSQL (>= 8.0.3) but Npgsql.EntityFrameworkCore.PostgreSQL 8.0.3 was not found. Npgsql.EntityFrameworkCore.PostgreSQL 8.0.4 was resolved instead.",
-      "libraryId": "Npgsql.EntityFrameworkCore.PostgreSQL",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
     {
       "code": "NU1903",
       "level": "Warning",

@@ -8,8 +8,8 @@ namespace api.Models
     public class Reservation
     {
         public int Id { get; set; }
-        public int AppUserId { get; set; }
-        public string ServiceId { get; set; }
+        public string AppUserId { get; set; }
+        public int ServiceId { get; set; }
         public string Address { get; set; }
         public DateTime Date { get; set; }
     }
