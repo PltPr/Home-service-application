@@ -7,6 +7,7 @@ namespace api.Models
 {
     public class Reservation
     {
+        public int Id { get; set; }
         public int AppUserId { get; set; }
         public string ServiceId { get; set; }
         public string Address { get; set; }
