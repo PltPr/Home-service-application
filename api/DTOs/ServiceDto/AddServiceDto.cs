@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace api.DTOs.ServiceDto
 {
-    public class GetServiceDto
+    public class AddServiceDto
     {
-        public string Name { get; set; }=string.Empty;
+        public string Name { get; set; }
     }
 }

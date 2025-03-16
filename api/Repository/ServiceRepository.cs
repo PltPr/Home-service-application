@@ -16,11 +16,30 @@ namespace api.Repository
         {
             _context=context;
         }
+
+        public async Task<Service> AddServiceAsync(Service serviceModel)
+        {
+            await _context.Service.AddAsync(serviceModel);
+            await _context.SaveChangesAsync();
+            return serviceModel;
+        }
+
+        public async Task<Service> DeleteAsync(Service serviceModel)
+        {
+            _context.Service.Remove(serviceModel);
+            await _context.SaveChangesAsync();
+            return serviceModel;
+        }
+
         public async Task<List<Service>> GetAllAsync()
         {
             var offers = await _context.Service.ToListAsync();
-            Console.WriteLine(offers);
             return offers;
+        }
+
+        public async Task<Service> GetByIdAsync(int id)
+        {
+            return await _context.Service.FirstOrDefaultAsync(s=>s.Id==id);
         }
     }
 }

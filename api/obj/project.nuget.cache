@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z/bjlRmegLQ=",
+  "dgSpecHash": "rLuq1Q4rT+WuBmMys4qQn641grjs9kOSZglRrUwaUVkBC3xI2VI13JldBHYjwpqt9LPL3hFyQRk3569RTntK/Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\etzy\\Documents\\Home-service-application\\api\\api.csproj",
+  "projectFilePath": "C:\\Users\\etzy\\Documents\\GitHub\\Home-service-application\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\etzy\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\etzy\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.14\\microsoft.aspnetcore.authentication.jwtbearer.8.0.14.nupkg.sha512",
@@ -66,26 +66,5 @@
     "C:\\Users\\etzy\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\etzy\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
-      "libraryId": "System.Text.Json",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
-      "libraryId": "System.Text.Json",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
