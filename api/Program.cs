@@ -18,6 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IServiceRepository,ServiceRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
+builder.Services.AddScoped<IReservationRepository,ReservationRepository>();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options=>{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));

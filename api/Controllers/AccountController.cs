@@ -36,6 +36,7 @@ namespace api.Controllers
                     return BadRequest(ModelState);
                 var appUser= new AppUser
                 {
+                    UserName=registerDto.Email,
                     Email=registerDto.Email
                 };
 
