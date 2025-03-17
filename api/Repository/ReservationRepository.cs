@@ -6,6 +6,7 @@ using api.Data;
 using api.DTOs.ReservationDto;
 using api.Interfaces;
 using api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
@@ -21,6 +22,26 @@ namespace api.Repository
             await _context.Reservation.AddAsync(reservationModel);
             await _context.SaveChangesAsync();
             return reservationModel;
+        }
+
+        public async Task<Reservation> DeleteReservationAsync(int id)
+        {
+            var reservation = await _context.Reservation.FirstOrDefaultAsync(r=>r.Id==id);
+            if(reservation==null)return null;
+            _context.Reservation.Remove(reservation);
+            await _context.SaveChangesAsync();
+            return reservation;
+
+        }
+
+        public async Task<Reservation> GetByIdAsync(int id)
+        {
+            return await _context.Reservation.Include(r=>r.Service).FirstOrDefaultAsync(r=>r.Id==id);
+        }
+
+        public async Task<List<Reservation>> GetUserReservationAsync(string id)
+        {
+            return await _context.Reservation.Include(r=>r.Service).Where(r=>r.AppUserId==id).ToListAsync();
         }
     }
 }

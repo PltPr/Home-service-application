@@ -20,5 +20,24 @@ namespace api.Mappers
                 Date = DateTime.ParseExact(reservationDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToUniversalTime()
             };
         }
+        public static ReservationDto asDto(this Reservation model,string userEmail, string serviceName)
+        {
+            return new ReservationDto
+            {
+                AppUserEmail=userEmail,
+                ServiceName=serviceName,
+                Address=model.Address,
+                Date=model.Date.ToString("yyyy-MM-dd")
+            };
+        }
+        public static GetUserReservationsDto userReservationsAsDto(this Reservation model)
+        {
+            return new GetUserReservationsDto
+            {
+                ServiceName=model.Service.Name,
+                Address=model.Address,
+                Date=model.Date.ToString("yyyy-MM-dd")
+            };
+        }
     }
 }

@@ -356,3 +356,7 @@ C:\Users\etzy\Documents\GitHub\Home-service-application\api\obj\Debug\net8.0\sco
 C:\Users\etzy\Documents\GitHub\Home-service-application\api\obj\Debug\net8.0\api.csproj.Up2Date
 C:\Users\etzy\Documents\GitHub\Home-service-application\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\etzy\Documents\GitHub\Home-service-application\api\obj\Debug\net8.0\ref\api.dll
+C:\Users\etzy\Documents\GitHub\Home-service-application\api\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\etzy\Documents\GitHub\Home-service-application\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\etzy\Documents\GitHub\Home-service-application\api\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\etzy\Documents\GitHub\Home-service-application\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

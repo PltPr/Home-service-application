@@ -10,5 +10,8 @@ namespace api.Interfaces
     public interface IReservationRepository
     {
         Task<Reservation>AddReserevationAsync(Reservation reservationModel);
+        Task<Reservation>GetByIdAsync(int id);
+        Task<List<Reservation>>GetUserReservationAsync(string id);
+        Task<Reservation>DeleteReservationAsync(int id);
     }
 }

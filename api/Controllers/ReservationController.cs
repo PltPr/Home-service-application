@@ -26,7 +26,28 @@ namespace api.Controllers
             _reservationRepository=reservationRepository;
             _serviceRepository=serviceRepository;
         }
-        
+        [HttpGet]
+        public async Task<IActionResult>GetById(int id)
+        {
+            var reservation = await _reservationRepository.GetByIdAsync(id);
+
+            if (reservation==null)return NotFound();
+
+            var user=await _userManager.FindByIdAsync(reservation.AppUserId);
+            if(user==null)return NotFound();
+            string userEmail=user.Email;
+
+            var service = await _serviceRepository.GetByIdAsync(reservation.ServiceId);
+            if(service==null)return NotFound();
+            string serviceName=service.Name;
+
+            var result = reservation.asDto(userEmail,serviceName);
+
+            return Ok(result);
+        }
+
+
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddReservation(AddReservationDto reservationDto, int serviceId)
@@ -52,6 +73,26 @@ namespace api.Controllers
             await _reservationRepository.AddReserevationAsync(reservationModel);
 
             return Ok(reservationModel);
+        }
+
+        [Authorize]
+        [HttpGet("user")]
+        public async Task<IActionResult>GetUserReservation()
+        {
+            var user = await _userManager.FindByNameAsync(User.GetUsername());
+            if(user==null)return Unauthorized();
+            var reservations = await _reservationRepository.GetUserReservationAsync(user.Id);
+
+            var result = reservations.Select(r => r.userReservationsAsDto()).ToList();
+            return Ok(result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult>DeleteReservation(int id)
+        {
+            var result = await _reservationRepository.DeleteReservationAsync(id);
+            if(result==null)return NotFound();
+            return NoContent();
+
         }
     }
 }
