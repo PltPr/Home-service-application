@@ -10,14 +10,14 @@ namespace api.Mappers
 {
     public static class ReservationMapper
     {
-        public static Reservation toReservation(this AddReservationDto reservationDto, int serviceId,string userId)
+        public static Reservation toReservation(this AddReservationDto reservationDto, int serviceId, string userId)
         {
             return new Reservation
             {
                 AppUserId=userId,
                 ServiceId=serviceId,
                 Address=reservationDto.Address,
-                Date = DateTime.ParseExact(reservationDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture)
+                Date = DateTime.ParseExact(reservationDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToUniversalTime()
             };
         }
     }
