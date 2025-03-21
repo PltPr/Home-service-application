@@ -1,16 +1,31 @@
-import React, { JSX } from 'react'
+import React, { JSX, useEffect, useState } from 'react'
 import Card from '../Card/Card';
+import { OffersGet } from '../../Models/Offers';
+import { getOfferApi } from '../../Api/OffersService';
 
 interface Props  {
-
 }
 
+
 const CardList:React.FC<Props> = (props: Props):JSX.Element => {
+  const[offer,setOffer] = useState<OffersGet[]>([]);
+
+  useEffect(()=>{
+    const getData = async()=>{
+      const value = await getOfferApi()
+      if(value){
+        setOffer(value);
+      }
+    }
+    getData();
+  },[])
   return (
     <div>
-    <Card id={1} name={"abc"}></Card>
-    <Card id={2} name={"abcd"}></Card>
-    <Card id={3} name={"abce"}></Card>
+
+    {offer.map((offer)=>(
+      <Card key={offer.id} id={offer.id} name={offer.name}/>
+    ))}
+
     </div>
   )
 }
