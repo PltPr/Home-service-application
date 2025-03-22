@@ -38,21 +38,29 @@ export const UserProvider=({children}:Props)=>{
 
 
 const registerUser = async(email:string, password:string)=>{
-    await registerAPI(email,password).then((res)=>{
-        if(res){
-            localStorage.setItem("token",res?.data.token);
-            const userObj={
-                email:res?.data.email,
-            }
-            localStorage.setItem("user",JSON.stringify(userObj));
+    try {
+        const res = await registerAPI(email, password);
+        if (res) {
+            localStorage.setItem("token", res?.data.token);
+            const userObj = {
+                email: res?.data.email,
+            };
+            localStorage.setItem("user", JSON.stringify(userObj));
             setToken(res?.data.token!);
             setUser(userObj!);
             toast.success("Register success");
             navigate("/");
-
         }
-    }).catch((e)=>toast.warning("serwer error occured"));
-}
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response) {
+            if (error) {
+                toast.warning("Server error occurred");
+            } 
+         }else {
+            toast.warning("Network error. Please try again later.");
+        }
+    }
+};
 
 const loginUser = async (email: string, password: string) => {
     try {

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import "./Navbar.css"
+import { useAuth } from '../../Context/useAuth';
 
 const Navbar = () => {
+  const {isLoggedIn,user,logout}=useAuth();
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -11,7 +13,12 @@ const Navbar = () => {
         </Link>
         <div className="navbar-links">
           <ul>
-            <li><Link to="login-page">Login</Link></li>
+            {isLoggedIn() ? 
+            (<li onClick={logout} className="logout-btn">Logout</li>)
+            :
+            (<><li><Link to="login-page">Login</Link></li>
+              <li><Link to="register-page">Register</Link></li></>)}
+            
           </ul>
         </div>
       </div>
