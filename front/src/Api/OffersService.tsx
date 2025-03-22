@@ -1,4 +1,4 @@
-import { OffersGet } from "../Models/Offers"
+import { OffersGet, OffersPost } from "../Models/Offers"
 import axios from "axios";
 
 export const getOfferApi = async()=>{
@@ -8,5 +8,15 @@ export const getOfferApi = async()=>{
     }catch(err){
         console.error("Error fetching offers:", err);
         return null;
+    }
+}
+
+export const postOfferApi = async (offer: OffersPost) => {
+    try {
+        const response = await axios.post("http://localhost:5173/api/service", offer);
+        return response.data; 
+    } catch (err) {
+        console.error("Error posting offer:", err);
+        return null; 
     }
 }
