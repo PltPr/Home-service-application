@@ -5,6 +5,7 @@ import { loginAPI, registerAPI } from "../Api/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode"
 
 type UserContextType={
     user:UserProfile | null;
@@ -13,6 +14,7 @@ type UserContextType={
     loginUser:(email:string,password:string)=>void;
     logout:()=>void;
     isLoggedIn:()=>boolean;
+    isAdmin:()=>boolean;
 }
 
 type Props={children:React.ReactNode};
@@ -24,6 +26,7 @@ export const UserProvider=({children}:Props)=>{
     const [token,setToken]=useState<string | null>(null);
     const [user,setUser]= useState<UserProfile|null>(null);
     const [isReady,setIsReady]=useState(false);
+
 
     useEffect(()=>{
         const user = localStorage.getItem("user");
@@ -44,6 +47,7 @@ const registerUser = async(email:string, password:string)=>{
             localStorage.setItem("token", res?.data.token);
             const userObj = {
                 email: res?.data.email,
+                role:["User"]
             };
             localStorage.setItem("user", JSON.stringify(userObj));
             setToken(res?.data.token!);
@@ -67,8 +71,14 @@ const loginUser = async (email: string, password: string) => {
         const res = await loginAPI(email, password);
         if (res) {
             localStorage.setItem("token", res?.data.token);
+
+            const decodedToken:any = jwtDecode(token!);
+
+            const roles = decodedToken?.roles || [];
+
             const userObj = {
                 email: res?.data.email,
+                role:roles
             };
             localStorage.setItem("user", JSON.stringify(userObj));
             setToken(res?.data.token!);
@@ -96,6 +106,12 @@ const isLoggedIn=()=>{
     return !!user;
 };
 
+const isAdmin=()=>{
+    if(user?.role&&user?.role.includes("Admin"))
+        return true;
+    return false;
+}
+
 const logout=()=>{
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -105,7 +121,7 @@ const logout=()=>{
 }
 
 return (
-<UserContext.Provider value={{loginUser,user,token,logout,isLoggedIn,registerUser}}>
+<UserContext.Provider value={{loginUser,user,token,logout,isLoggedIn,registerUser,isAdmin}}>
     {isReady ? children : null}
 </UserContext.Provider>
 )
