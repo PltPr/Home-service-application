@@ -47,11 +47,13 @@ namespace api.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if(roleResult.Succeeded)
                     {
+                        var roles = new List<string> {"User"};
+                        var token = _tokenService.CreateToken(appUser,roles);
                         return Ok(
                             new NewUserDto
                             {
                                 Email=appUser.Email,
-                                Token=_tokenService.CreateToken(appUser)
+                                Token=token
                             }
                         );
                     }
@@ -85,11 +87,15 @@ namespace api.Controllers
             var result = await _singInManager.CheckPasswordSignInAsync(user, loginDto.Password,false);
             if (!result.Succeeded) return Unauthorized("Username not found and/or password is incorrect!");
 
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _tokenService.CreateToken(user,roles);
+
             return Ok(
                 new NewUserDto
                 {
                     Email=user.Email,
-                    Token=_tokenService.CreateToken(user)
+                    Token=token
                 }
             );
         }
