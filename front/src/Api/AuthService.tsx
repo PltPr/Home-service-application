@@ -10,6 +10,7 @@ export const loginAPI = async(email:string,password:string)=>{
         return data;
     }catch(error){
         console.error("Something went wrong", error)
+        throw error;
     }
 }
 
@@ -21,6 +22,7 @@ export const registerAPI = async(email:string,password:string)=>{
         });
         return data;
     }catch(error){
-        console.error("Something went wrong", error)
+        console.error("Something went wrong", error);
+        throw error;
     }
 }
