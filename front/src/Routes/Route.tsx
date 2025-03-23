@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
         element:<App/>,
         children:[
             {path:"",element:<HomePage/>},
-            {path:"order-page/:offerId",element:<ProtectedRoute><ReservePage/></ProtectedRoute>},
+            {path:"order-page/:serviceId",element:<ProtectedRoute><ReservePage/></ProtectedRoute>},
             {path:"login-page",element:<LoginPage/>},
             {path:"register-page",element:<RegisterPage/>}
         ]

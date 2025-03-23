@@ -1,11 +1,16 @@
-import React from 'react'
+import axios from "axios";
+import { ReservationPost } from "../Models/Reservation";
 
-type Props = {}
 
-const ReservationService = (props: Props) => {
-  return (
-    <div>ReservationService</div>
-  )
+export const postReservationApi = async (serviceId:number,reservationPost:ReservationPost)=>{
+  try{
+    const response =await axios.post<ReservationPost>
+    (`http://localhost:5173/api/reservation/${serviceId}`,
+      reservationPost
+    );
+    return response.data;
+  }catch(error){
+    console.error("Post reservation error",error);
+    throw error;
+  }
 }
-
-export default ReservationService
