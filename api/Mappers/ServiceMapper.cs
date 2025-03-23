@@ -20,6 +20,7 @@ namespace api.Mappers
         {
             return new GetServiceDto
             {
+                Id=service.Id,
                 Name=service.Name,
             };
         }
