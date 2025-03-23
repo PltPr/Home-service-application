@@ -95,7 +95,7 @@ namespace api.Controllers
 
         }
         [HttpGet("{serviceId}")]
-        public async Task<IActionResult>GetReservedDate(int serviceId)
+        public async Task<IActionResult>GetReservedDate([FromRoute]int serviceId)
         {
             var reservation = await _reservationRepository.GetReservedDatesAsync(serviceId);
 
