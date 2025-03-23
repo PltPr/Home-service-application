@@ -27,7 +27,7 @@ namespace api.Mappers
                 AppUserEmail=userEmail,
                 ServiceName=serviceName,
                 Address=model.Address,
-                Date=model.Date.ToString("yyyy-MM-dd")
+                Date=model.Date.ToString("yyyy-MM-ddTHH:mm:ss")
             };
         }
         public static GetUserReservationsDto userReservationsAsDto(this Reservation model)
@@ -36,7 +36,7 @@ namespace api.Mappers
             {
                 ServiceName=model.Service.Name,
                 Address=model.Address,
-                Date=model.Date.ToString("yyyy-MM-dd")
+                Date=model.Date.ToString("yyyy-MM-ddTHH:mm:ss")
             };
         }
     }

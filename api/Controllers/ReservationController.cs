@@ -50,7 +50,7 @@ namespace api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddReservation(AddReservationDto reservationDto, int serviceId)
+        public async Task<IActionResult> AddReservation(AddReservationDto reservationDto,[FromRoute] int serviceId)
         {
             if(!ModelState.IsValid) return BadRequest();
 
