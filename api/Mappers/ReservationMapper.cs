@@ -39,5 +39,12 @@ namespace api.Mappers
                 Date=model.Date.ToString("yyyy-MM-ddTHH:mm:ss")
             };
         }
+        public static GetReservedDateDto getReservedDate(this Reservation model)
+        {
+            return new GetReservedDateDto
+            {
+                Date=model.Date.ToString("yyyy-MM-ddTHH:mm:ss")
+            };
+        }
     }
 }

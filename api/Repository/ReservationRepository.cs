@@ -39,6 +39,12 @@ namespace api.Repository
             return await _context.Reservation.Include(r=>r.Service).FirstOrDefaultAsync(r=>r.Id==id);
         }
 
+        public async Task<List<Reservation>> GetReservedDatesAsync(int serviceId)
+        {
+            return await _context.Reservation.Where(r=>r.ServiceId==serviceId).ToListAsync();
+
+        }
+
         public async Task<List<Reservation>> GetUserReservationAsync(string id)
         {
             return await _context.Reservation.Include(r=>r.Service).Where(r=>r.AppUserId==id).ToListAsync();

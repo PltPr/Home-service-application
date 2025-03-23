@@ -94,5 +94,14 @@ namespace api.Controllers
             return NoContent();
 
         }
+        [HttpGet("{serviceId}")]
+        public async Task<IActionResult>GetReservedDate(int serviceId)
+        {
+            var reservation = await _reservationRepository.GetReservedDatesAsync(serviceId);
+
+            var result = reservation.Select(r=>r.getReservedDate()).ToList();
+
+            return Ok(result);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace api.Interfaces
         Task<Reservation>GetByIdAsync(int id);
         Task<List<Reservation>>GetUserReservationAsync(string id);
         Task<Reservation>DeleteReservationAsync(int id);
+        Task<List<Reservation>>GetReservedDatesAsync(int serviceId);
     }
 }
