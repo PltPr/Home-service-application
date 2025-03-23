@@ -17,7 +17,7 @@ namespace api.Mappers
                 AppUserId=userId,
                 ServiceId=serviceId,
                 Address=reservationDto.Address,
-                Date = DateTime.ParseExact(reservationDto.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToUniversalTime()
+                Date = DateTime.ParseExact(reservationDto.Date, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture).ToUniversalTime()
             };
         }
         public static ReservationDto asDto(this Reservation model,string userEmail, string serviceName)

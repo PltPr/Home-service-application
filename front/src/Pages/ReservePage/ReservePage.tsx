@@ -12,10 +12,13 @@ const ReservePage = (props: Props) => {
   const[address,setAddress]=useState<string>("");
   const {serviceId}=useParams<{serviceId:string}>();
   const serviceIdNumber = Number(serviceId);
+  console.log(serviceIdNumber);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
   };
+  
+
 
 
   const handleAddressChange =(event:any)=>{
@@ -25,13 +28,15 @@ const ReservePage = (props: Props) => {
   const handleReservation = async(event:any)=>{
     event.preventDefault();
     if(!selectedDate||!address) {toast.warning("Fill data");return;}
-    
+    const formattedDate = selectedDate.toISOString().slice(0, 19);
+
     var resObj ={
-      selectedDate:selectedDate,
+      date:formattedDate,
       address:address
     }
     try{
       postReservationApi(serviceIdNumber,resObj)
+      toast.success("Reservation successfully added!")
     }catch(err){
       toast.warning("Something went wrong");
     }
