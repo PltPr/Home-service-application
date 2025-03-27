@@ -13,7 +13,6 @@ const CardList:React.FC<Props> = (props: Props):JSX.Element => {
   useEffect(()=>{
     const getData = async()=>{
       const value = await getOfferApi()
-      console.log(value);
       if(value){
         setOffer(value);
       }
