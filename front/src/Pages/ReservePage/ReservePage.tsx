@@ -33,7 +33,7 @@ useEffect(()=>{
   }
   GetData();
 },[serviceIdNumber])
-
+console.log(reservatedDate)
   const handleAddressChange =(event:any)=>{
     setAddress(event.target.value);
   }
@@ -77,7 +77,11 @@ useEffect(()=>{
     // Iteracja po zarezerwowanych dniach i godzinach
     reservedDate.forEach((reservedDate) => {
       if (reservedDate.toDateString() === date.toDateString()) {
-        excludedTimes.push(reservedDate);
+      
+
+        const plusFourHours = new Date(reservedDate);
+      plusFourHours.setHours(plusFourHours.getHours() + 4);
+      excludedTimes.push(plusFourHours);
       }
     });
 
@@ -100,7 +104,6 @@ useEffect(()=>{
     {
       return parseISO(item.date);
     })
-  console.log(reservedDate);
 
   return (
     <div>

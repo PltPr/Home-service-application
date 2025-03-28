@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ReservationPost } from "../Models/Reservation";
+import {MyReservationsGet, ReservationPost } from "../Models/Reservation";
 
 
 
@@ -27,3 +27,14 @@ export const getReservatedDateApi = async(serviceId:number)=>{
     throw err;
     }
  }
+
+ 
+export const getMyReservationsApi = async()=>{
+  try{
+  const response = await axios.get<MyReservationsGet[]>(`http://localhost:5173/api/reservation/user`)
+  return response.data;
+  }catch(err){
+    console.log("MyReservationsError");
+    throw err;
+  }
+}

@@ -14,7 +14,12 @@ const Navbar = () => {
         <div className="navbar-links">
           <ul>
             {isLoggedIn() ? 
-            (<li onClick={logout} className="logout-btn">Logout</li>)
+            (
+            <>
+            <li className="reservations-btn"><Link to ="my-reservations-page">My reservations</Link></li>
+            <li onClick={logout} className="logout-btn">Logout</li>
+            </>
+            )
             :
             (<><li><Link to="login-page">Login</Link></li>
               <li><Link to="register-page">Register</Link></li></>)}
