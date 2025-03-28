@@ -28,13 +28,25 @@ export const getReservatedDateApi = async(serviceId:number)=>{
     }
  }
 
- 
+
 export const getMyReservationsApi = async()=>{
   try{
   const response = await axios.get<MyReservationsGet[]>(`http://localhost:5173/api/reservation/user`)
   return response.data;
   }catch(err){
     console.log("MyReservationsError");
+    throw err;
+  }
+}
+
+export const deleteReservationApi = async(id:number)=>{
+  try{
+    const response = await axios.delete(`http://localhost:5173/api/reservation`,{
+      params:{id}
+    })
+    return response.data;
+  }catch(err){
+    console.error("DeleteReservationError");
     throw err;
   }
 }

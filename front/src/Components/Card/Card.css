@@ -41,4 +41,30 @@
   .button span {
     font-weight: 500;
   }
-  
+  /* Styl dla przycisku */
+.delete-button {
+  background-color: #e74c3c; /* Czerwony kolor tła, dla przycisku usuwania */
+  color: white; /* Kolor tekstu */
+  padding: 10px 20px; /* Wewnętrzne odstępy */
+  border-radius: 5px; /* Zaokrąglone rogi */
+  border: none; /* Brak obramowania */
+  font-size: 16px; /* Rozmiar czcionki */
+  cursor: pointer; /* Zmieniony kursor na 'pointer' przy najechaniu */
+  transition: background-color 0.3s, transform 0.2s; /* Animacja zmiany koloru i efekt przycisku */
+}
+
+/* Styl po najechaniu kursorem */
+.delete-button:hover {
+  background-color: #c0392b; /* Ciemniejszy odcień czerwonego przy najechaniu */
+  transform: scale(1.05); /* Powiększenie przycisku podczas najechania */
+}
+
+/* Styl przycisku w stanie kliknięcia */
+.delete-button:active {
+  transform: scale(0.95); /* Zmniejszenie przycisku, gdy jest kliknięty */
+}
+
+/* Opcjonalnie, styl dla tekstu w przycisku */
+.delete-button span {
+  font-weight: bold; /* Pogrubienie tekstu */
+}

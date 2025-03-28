@@ -16,14 +16,16 @@ const MyReservationCardList:React.FC<Props> = (props: Props):JSX.Element => {
             const value = await getMyReservationsApi();
             if(value){
                 setReservations(value)}
+                
         }
         getData();
     },[])
+    console.log(reservations);
   return (
     <div>
 
-        {reservations.map((reservation,index)=>(
-            <MyReservationCard key={index} reservation={reservation}/>
+        {reservations.map((reservation)=>(
+            <MyReservationCard key={reservation.id} reservation={reservation}/>
         ))}
 
     </div>

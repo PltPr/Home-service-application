@@ -87,8 +87,11 @@ namespace api.Controllers
             return Ok(result);
         }
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult>DeleteReservation(int id)
         {
+            var user = await _userManager.FindByNameAsync(User.GetUsername());
+            var userId = user.id;
             var result = await _reservationRepository.DeleteReservationAsync(id);
             if(result==null)return NotFound();
             return NoContent();

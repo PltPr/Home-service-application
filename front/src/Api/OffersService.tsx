@@ -20,3 +20,15 @@ export const postOfferApi = async (offer: OffersPost) => {
         return null; 
     }
 }
+
+export const deleteOfferApi = async(id:number)=>{
+    try{
+        const response = await axios.delete(`http://localhost:5173/api/service`,{
+            params:{id}
+        });
+        return response.data;
+    }catch(err){
+        console.error("deleteOfferApi Error");
+        throw err;
+    }
+}
