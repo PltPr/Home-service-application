@@ -12,7 +12,7 @@ const MyReservationCard = ({reservation}: Props) => {
     
     const formattedDate = new Date(reservation.date);
 
-    formattedDate.setHours(formattedDate.getHours() + 4);
+    formattedDate.setHours(formattedDate.getHours() + 2);
 
     const formattedDateString = formattedDate.toLocaleDateString('pl-PL', {
         day: '2-digit',

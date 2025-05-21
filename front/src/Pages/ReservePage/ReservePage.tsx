@@ -80,7 +80,7 @@ console.log(reservatedDate)
       
 
         const plusFourHours = new Date(reservedDate);
-      plusFourHours.setHours(plusFourHours.getHours() + 4);
+      plusFourHours.setHours(plusFourHours.getHours() + 2);
       excludedTimes.push(plusFourHours);
       }
     });

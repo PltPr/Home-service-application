@@ -260,7 +260,7 @@ namespace api.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservation", (string)null);
                 });
 
             modelBuilder.Entity("api.Models.Service", b =>
@@ -277,7 +277,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Service", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
