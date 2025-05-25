@@ -3,7 +3,7 @@ import { UserProfileToken } from "../Models/User";
 
 export const loginAPI = async(email:string,password:string)=>{
     try{
-        const data = await axios.post<UserProfileToken>(`http://localhost:5173/api/account/login`,{
+        const data = await axios.post<UserProfileToken>(`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/account/login`,{
             email:email,
             password:password
         });
@@ -16,7 +16,7 @@ export const loginAPI = async(email:string,password:string)=>{
 
 export const registerAPI = async(email:string,password:string)=>{
     try{
-        const data = await axios.post<UserProfileToken>(`http://localhost:5173/api/account/register`,{
+        const data = await axios.post<UserProfileToken>(`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/account/register`,{
             email:email,
             password:password
         });

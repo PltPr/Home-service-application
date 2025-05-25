@@ -5,6 +5,9 @@ import { toast } from 'react-toastify';
 import { getReservatedDateApi, postReservationApi } from '../../Api/ReservationService';
 import { useParams } from 'react-router-dom';
 import { parseISO } from 'date-fns';
+import { getNameById } from '../../Api/OffersService';
+
+
 
 type Props = {};
 
@@ -14,12 +17,22 @@ const ReservePage = (props: Props) => {
   const {serviceId}=useParams<{serviceId:string}>();
   const[reservatedDate,setReservatedDate]=useState<{date: string}[]>([])
   const serviceIdNumber = Number(serviceId);
-  
-
+  const[name,setName]=useState<string|null>("");
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
   };
+
   
+useEffect(()=>{
+  const GetData=async()=>{
+  try{
+    const response = await getNameById(serviceIdNumber)
+    if(response?.name)setName(response.name);
+  }catch(err){
+    console.log("Can't get service name");
+  }}
+  GetData();
+},[])
 
 useEffect(()=>{
   const GetData= async()=>{
@@ -80,7 +93,7 @@ console.log(reservatedDate)
       
 
         const plusFourHours = new Date(reservedDate);
-      plusFourHours.setHours(plusFourHours.getHours() + 2);
+      plusFourHours.setHours(plusFourHours.getHours() + 4);
       excludedTimes.push(plusFourHours);
       }
     });
@@ -105,41 +118,62 @@ console.log(reservatedDate)
       return parseISO(item.date);
     })
 
-  return (
-    <div>
-      <h1>Reserve Page</h1>
-      <form onSubmit={handleReservation}>
-
-      <label htmlFor="address">Enter Address:</label>
-        <input
-          type="text"
-          id="address"
-          value={address}
-          onChange={handleAddressChange}
-          placeholder="Enter address"
-        />
-
-
-
-        <label htmlFor="reservationDateTime">Choose a date and time:</label>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          showTimeSelect
-          dateFormat="yyyy-MM-ddTHH:mm"
-          timeFormat="HH:mm"
-          timeIntervals={120} 
-          minDate={new Date()}
-          maxDate={new Date('2025-12-31')}
-          placeholderText="Click to select date and time"
-          excludeTimes={excludeTimes}
-        />
-        <p>Selected date and time: {formatDate(selectedDate)}</p>
-
-        <button type="submit">Make reservation</button>
-      </form>
-    </div>
-  );
+    return (
+      <div className="bg-gradient-to-b from-gray-200 to-[#666666] min-h-screen flex items-center justify-center">
+        <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg border border-black">
+          <h1 className="text-2xl font-bold text-center mb-6">Reserve Page</h1>
+          <h1 className="text-xl font-bold text-center mb-6">{name}</h1>
+    
+          <form onSubmit={handleReservation} className="space-y-4">
+            <div>
+              <label htmlFor="address" className="block text-sm font-medium mb-1">
+                Enter Address
+              </label>
+              <input
+                type="text"
+                id="address"
+                value={address}
+                onChange={handleAddressChange}
+                placeholder="Enter address"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </div>
+    
+            <div>
+              <label
+                htmlFor="reservationDateTime"
+                className="block text-sm font-medium mb-1"
+              >
+                Choose a date and time
+              </label>
+              <DatePicker
+                selected={selectedDate}
+                onChange={handleDateChange}
+                showTimeSelect
+                dateFormat="yyyy-MM-dd'T'HH:mm"
+                timeFormat="HH:mm"
+                timeIntervals={120}
+                minDate={new Date()}
+                maxDate={new Date("2025-12-31")}
+                placeholderText="Click to select date and time"
+                excludeTimes={excludeTimes}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+              <p className="text-sm text-gray-600 mt-1">
+                Selected date and time: {formatDate(selectedDate)}
+              </p>
+            </div>
+    
+            <button
+              type="submit"
+              className="w-full bg-amber-400 hover:bg-amber-500 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+            >
+              Make reservation
+            </button>
+          </form>
+        </div>
+      </div>
+    );
 };
 
 export default ReservePage;

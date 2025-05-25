@@ -24,5 +24,12 @@ namespace api.Mappers
                 Name=service.Name,
             };
         }
+        public static GetServiceByIdDto toServiceNameDto(this Service service)
+        {
+            return new GetServiceByIdDto
+            {
+                Name=service.Name,
+            };
+        }
     }
 }

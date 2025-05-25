@@ -1,0 +1,145 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+    buildConfiguration: 'Release'
+    backendFolder: 'api'
+    frontendFolder: 'front'
+    reactBuildPath: 'build'
+
+jobs:
+- job: Backend
+  pool:
+    vmImage: 'windows-latest'
+
+
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore Backend'
+    inputs:
+      command: 'restore'
+      projects: '$(backendFolder)/*.csproj'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build Backend'
+    inputs:
+      command: 'build'
+      projects: '$(backendFolder)/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Test Backend'
+    inputs:
+      command: 'test'
+      projects: '$(backendFolder).tests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish Backend'
+    inputs:
+      command: 'publish'
+      projects: '$(backendFolder)/*.csproj'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/backend'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Backend Artifact'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/backend'
+      artifactName: 'backend'
+
+- job: Frontend
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  variables:
+    buildConfiguration: 'Release'
+    frontendFolder: 'front'
+    reactBuildPath: 'build'
+
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+  - task: CmdLine@2
+    displayName: 'Install React App'
+    inputs:
+      workingDirectory: '$(frontendFolder)'
+      script: |
+        npm install
+
+  - task: CmdLine@2
+    displayName: 'Test Frontend'
+    inputs:
+      workingDirectory: '$(frontendFolder)'
+      script: |
+        npm t
+
+  - task: CmdLine@2
+    displayName: 'Build React App'
+    inputs:
+      workingDirectory: '$(frontendFolder)'
+      script: |
+        npm run build
+
+  - task: CopyFiles@2
+    displayName: 'Copy Frontend Build'
+    inputs:
+      SourceFolder: '$(frontendFolder)/$(reactBuildPath)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/frontend'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Frontend Artifact'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/frontend'
+      artifactName: 'frontend'
+
+- job: DeployBackend
+  dependsOn: Backend
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    displayName: 'Download Backend Artifact'
+    inputs:
+      artifactName: 'backend'
+      downloadPath: '$(Pipeline.Workspace)'
+    
+  - task: AzureWebApp@1
+    displayName: 'Deploy Backend to Azure App Service'
+    inputs:
+      azureSubscription: 'AzureServiceConnection'
+      appType: 'webApp'
+      appName: 'HomeServiceApi'
+      package: '$(Pipeline.Workspace)/backend'
+      deploymentMethod: 'zipDeploy'
+
+- job: DeployFrontend
+  dependsOn: Frontend
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Frontend Artifact'
+      inputs:
+        artifactName: 'frontend'
+        downloadPath: '$(Build.SourcesDirectory)'
+
+    - task: AzureStaticWebApp@0
+      displayName: 'Deploy Frontend to Azure Static Web Apps'
+      inputs:
+        app_location: 'frontend'                 
+        output_location: ''    
+        azure_static_web_apps_api_token: $(deployment_token)
+        removeAdditionalFilesFlag: true

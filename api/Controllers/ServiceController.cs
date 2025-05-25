@@ -52,5 +52,16 @@ namespace api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{serviceId}")]
+        public async Task<IActionResult>GetServiceById([FromRoute]int serviceId)
+        {
+            if(!ModelState.IsValid) return BadRequest();
+
+            var service = await _serviceRepository.GetByIdAsync(serviceId);
+            var result = service.toServiceNameDto();
+
+            return Ok(result);
+        }
     }
 }

@@ -26,18 +26,19 @@ const handleDelete=async()=>{
 }
 
   return (
-    <div className='card'>{name}
-    <Link to={`/order-page/${id}`}className='button'>
-    <span>order service</span>
+    <div className='flex justify-baseline items-center'>
+    <div className='bg-gray-300 flex m-10  justify-between border-2 border-black min-w-[300px]'>
+    <h1 className='text-center m-5 p-3 border border-black bg-white'>{name}</h1>
+    <Link to={`/order-page/${id}`}className='border border-black flex items-center justify-center bg-white w-auto px-5 my-5 rounded-s-2xl'>
+    order service
     </Link>
-
+    </div>
     {isAdmin()?(
-    <button onClick={handleDelete} className="button delete-button">
-        <span>Delete Service</span>
-    </button>
+    <h1 onClick={handleDelete} className=" cursor-pointer h-10 border border-black bg-red-500 flex items-center justify-center bg-white w-auto px-5 my-5 rounded">
+        X
+    </h1>
     ):("")
     }
-
     </div>
   )
 }

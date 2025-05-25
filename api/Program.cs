@@ -55,11 +55,20 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+
+
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    }
+
+    options.UseNpgsql(connectionString);
 });
-var connectionString = Environment.GetEnvironmentVariable("MyDbConnectionString");
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
@@ -101,7 +110,9 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()  // Allow all origins (adjust this for more security if needed)
+        policy.WithOrigins(
+                "http://localhost:3000",
+                "https://jolly-island-0a4cdee03.6.azurestaticapps.net")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

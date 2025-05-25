@@ -91,7 +91,7 @@ namespace api.Controllers
         public async Task<IActionResult>DeleteReservation(int id)
         {
             var user = await _userManager.FindByNameAsync(User.GetUsername());
-            var userId = user.Id;
+            string userId = user.Id;
             var result = await _reservationRepository.DeleteReservationAsync(id,userId);
             if(result==null)return NotFound();
             return NoContent();

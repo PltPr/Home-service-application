@@ -6,7 +6,7 @@ import {MyReservationsGet, ReservationPost } from "../Models/Reservation";
 export const postReservationApi = async (serviceId:number,reservationPost:ReservationPost)=>{
   try{
     const response =await axios.post<ReservationPost>
-    (`http://localhost:5173/api/reservation/${serviceId}`,
+    (`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/reservation/${serviceId}`,
       reservationPost
     );
     return response.data;
@@ -20,7 +20,7 @@ export const postReservationApi = async (serviceId:number,reservationPost:Reserv
 
 export const getReservatedDateApi = async(serviceId:number)=>{
   try{
-    const response = await axios.get<{date: string}[]>(`http://localhost:5173/api/reservation/${serviceId}`)
+    const response = await axios.get<{date: string}[]>(`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/reservation/${serviceId}`)
     return response.data;
   }catch(err){
     console.error("GetReservatedApi error",err);
@@ -31,7 +31,7 @@ export const getReservatedDateApi = async(serviceId:number)=>{
 
 export const getMyReservationsApi = async()=>{
   try{
-  const response = await axios.get<MyReservationsGet[]>(`http://localhost:5173/api/reservation/user`)
+  const response = await axios.get<MyReservationsGet[]>(`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/reservation/user`)
   return response.data;
   }catch(err){
     console.log("MyReservationsError");
@@ -41,7 +41,7 @@ export const getMyReservationsApi = async()=>{
 
 export const deleteReservationApi = async(id:number)=>{
   try{
-    const response = await axios.delete(`http://localhost:5173/api/reservation`,{
+    const response = await axios.delete(`https://homeserviceapi-angeg8f8gqebh8b3.polandcentral-01.azurewebsites.net/api/reservation`,{
       params:{id}
     })
     return response.data;
